@@ -90,6 +90,7 @@ main {
     text-align: right;
     font-size: var(--fs-xl);
     font-weight: 500;
+    height: 33px;
 }
 
 .display__main {
@@ -97,6 +98,7 @@ main {
     text-align: right;
     font-size: var(--fs-x4l);
     font-weight: 700;
+    height: 59px;
 }
 
 .calculator__divider {
