@@ -8,6 +8,8 @@ const maindisplay = document.querySelector('.display__main')
 
 const historydisplay = document.querySelector('.display__history')
 
+const actionresult = document.querySelector('.action__result')
+
 // Menção das funções
 
 const dot = document.querySelector('.dot')
@@ -42,6 +44,7 @@ numbers.forEach(function (el) {
     })
 })
 
+
 // Função Ponto
 
 dot.addEventListener("click", (event) => {
@@ -55,6 +58,7 @@ dot.addEventListener("click", (event) => {
 clean.addEventListener("click", (event) => {
     maindisplay.innerText = 0
     historydisplay.innerText = " "
+    actionresult.innerText = 0
 })
 
 // Função apagar
@@ -81,6 +85,7 @@ soma.addEventListener("click", (event) => {
 
         if (historyText !== "")
             historydisplay.innerText = result
+            actionresult.innerText = result
         }
     }
 })
@@ -99,6 +104,7 @@ sub.addEventListener("click", (event) => {
 
         if (historyText !== "")
             historydisplay.innerText = result
+            actionresult.innerText = result
         }
     }
 })
@@ -117,6 +123,7 @@ mult.addEventListener("click", (event) => {
 
         if (historyText !== "")
             historydisplay.innerText = result
+            actionresult.innerText = result
         }
     }
 })
@@ -133,34 +140,29 @@ div.addEventListener("click", (event) => {
 
         if (historyText !== "")
             historydisplay.innerText = result
+            actionresult.innerText = result
         }
     }
 })
 
 equal.addEventListener("click", (event) => {
-    // const value = event.target.innerText;
-    const equal_soma = Number(maindisplay.innerText) + Number(maindisplay.innerText)
-    const equal_sub = Number(historydisplay.innerText) - Number(maindisplay.innerText)
-    const equal_mult = Number(historydisplay.innerText) * Number(maindisplay.innerText)
-    const equal_div = Number(historydisplay.innerText) / Number(maindisplay.innerText)
-    const historyText = historydisplay.innerText.trim()
+    const equal_soma = Number(historydisplay.innerText) + Number(maindisplay.innerText);
+    const equal_sub = Number(historydisplay.innerText) - Number(maindisplay.innerText);
+    const equal_mult = Number(historydisplay.innerText) * Number(maindisplay.innerText);
+    const equal_div = Number(historydisplay.innerText) / Number(maindisplay.innerText);
 
     if (maindisplay && historydisplay) {
         if (maindisplay.innerText !== "0") {
             historydisplay.innerText = maindisplay.innerText;
             maindisplay.innerText = 0
-
-         if (historyText !== "" && soma)
+        } if (soma) {
             historydisplay.innerText = equal_soma
-
-        if (historyText !== "" && sub)
+        } if (sub) {
             historydisplay.innerText = equal_sub
-
-        if (historyText !== "" || mult)
+        } if (mult) {
             historydisplay.innerText = equal_mult
-
-        if (historyText !== "" || div)
+        } if (div) {
             historydisplay.innerText = equal_div
         }
-    }
+    }   
 })

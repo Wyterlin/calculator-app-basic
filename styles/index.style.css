@@ -118,6 +118,7 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: var(--p-sm);
+    /* height: 4%; */
 }
 
 .action__buttons {
