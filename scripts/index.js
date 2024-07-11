@@ -4,9 +4,9 @@ const numbers = document.querySelectorAll('.number')
 
 // Operators
 
-const operator = document.querySelectorAll('.operator')
+const operators = document.querySelectorAll('.operator')
 
-const sec_operator = document.querySelectorAll('.sec_operator')
+const sec_operators = document.querySelectorAll('.sec_operator')
 
 // Windows
 
@@ -20,9 +20,9 @@ const actionresult = document.querySelector('.action__result')
 
 const dot = document.querySelector('.dot')
 
-const clean = document.querySelector('.clean')
+const signalchange = document.querySelector('.signal_change')
 
-const backspace = document.querySelector('.action__clear-display')
+const backspace = document.querySelector('.backspace')
 
 // Operator egual
 
@@ -45,7 +45,7 @@ numbers.forEach(function (el) {
 
 // Calculator operator
 
-operator.forEach(function (el) {
+operators.forEach(function (el) {
     el.addEventListener("click", (event) => {
         const operator = event.target.innerText;
         const historyText = historydisplay.innerText.trim();
@@ -83,22 +83,24 @@ operator.forEach(function (el) {
     });
 });
 
-
 // Calculator secundary operator
 
-sec_operator.forEach(function (el) {
+sec_operators.forEach(function (el) {
     el.addEventListener("click", (event) => {
         const secoperator = event.target.innerText;
 
-        if (secoperator === 'C') {
-            maindisplay.innerText = "0";
-            historydisplay.innerText = "";
-            actionresult.innerText = "0"; // Se você tiver um display para resultados de ação
-            firstValue = null;
-            currentOperator = null;
-        }
-    });
-});
+    if (secoperator === 'C') {
+        maindisplay.innerText = "0";
+        historydisplay.innerText = "";
+        actionresult.innerText = "0";
+            } else if (secoperator === '%') {
+                maindisplay.innerText = maindisplay.innerText * 0.01
+            } else if (secoperator === '()') {
+                historydisplay.innerText = '(' + maindisplay.innerText + ')'
+                maindisplay.innerText = 0
+            }
+    })
+})
 
 // Função dot
 
@@ -106,6 +108,16 @@ dot.addEventListener("click", (event) => {
     const value = event.target.innerText
     if (maindisplay.innerText.includes(".")) return
     maindisplay.innerText += value
+})
+
+// Função troca de sinal
+
+signalchange.addEventListener("click", (event) => {
+    const value = event.target.innerText
+    
+    if (secoperator === '+/-') {
+        maindisplay.innerText = - + maindisplay.innerText
+    }
 })
 
 // Função backspace
