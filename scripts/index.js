@@ -4,9 +4,9 @@ const numbers = document.querySelectorAll('.number')
 
 // Operators
 
-const operador = document.querySelectorAll('.operator')
+const operator = document.querySelectorAll('.operator')
 
-const sec_operador = document.querySelectorAll('.sec_coperator')
+const sec_operator = document.querySelectorAll('.sec_coperator')
 
 // Windows
 
@@ -45,17 +45,73 @@ numbers.forEach(function (el) {
 
 // Calculator operator
 
-operador.forEach(function (el) {
-    el.addEventListener("click", (event) => {
-        const operator = event.target.innerText
+let currentOperator = null;
+let firstValue = null;
 
-        maindisplay.innerText += operator
-    })
-})
+operator.forEach(function (el) {
+    el.addEventListener("click", (event) => {
+        const operator = event.target.innerText;
+        const currentValue = Number(maindisplay.innerText);
+
+        if (firstValue === null) {
+            firstValue = currentValue;
+        } else if (currentOperator !== null) {
+            switch (currentOperator) {
+                case '+':
+                    firstValue += currentValue;
+                    break;
+                case '-':
+                    firstValue -= currentValue;
+                    break;
+                case 'x':
+                    firstValue *= currentValue;
+                    break;
+                case '/':
+                    firstValue /= currentValue;
+                    break;
+            }
+        }
+
+        currentOperator = operator;
+
+        historydisplay.innerText = firstValue + " " + operator;
+        maindisplay.innerText = "0";
+    });
+});
+
+operator.addEventListener("click", () => {
+    if (currentOperator !== null && firstValue !== null) {
+        const currentValue = Number(maindisplay.innerText);
+        let result;
+
+        switch (currentOperator) {
+            case '+':
+                result = firstValue + currentValue;
+                break;
+            case '-':
+                result = firstValue - currentValue;
+                break;
+            case 'x':
+                result = firstValue * currentValue;
+                break;
+            case '/':
+                result = firstValue / currentValue;
+                break;
+            default:
+                result = currentValue;
+        }
+
+        historydisplay.innerText = result;
+        maindisplay.innerText = result;
+
+        firstValue = null;
+        currentOperator = null;
+    }
+});
 
 // Calculator secundary operator
 
-sec_operador.forEach(function (el) {
+sec_operator.forEach(function (el) {
     el.addEventListener("click", (event) => {
         const secoperator = event.target.innerText
 
