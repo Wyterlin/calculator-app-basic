@@ -52,15 +52,13 @@ operators.forEach(function (el) {
         const operator = event.target.innerText
         const historyText = historydisplay.innerText.trim()
         const firstValue = parseFloat(historydisplay.innerText)
-        console.log("🚀 ~ el.addEventListener ~ parseFloat(historydisplay.innerText):", parseFloat(historydisplay.innerText))
         const secondValue = parseFloat(maindisplay.innerText)
-        console.log("🚀 ~ el.addEventListener ~ parseFloat(maindisplay.innerText):", parseFloat(maindisplay.innerText))
 
         if (maindisplay && historydisplay) {
-            if (CurrentValue !== "0") {
+            if (CurrentValue !== 0) {
                 historydisplay.innerText = CurrentValue + " " + operator
                 CurrentValue = secondValue
-                maindisplay.innerText = "0"
+                maindisplay.innerText = 0
             }
 
             if (historyText !== "") {
@@ -84,7 +82,7 @@ operators.forEach(function (el) {
 
                 historydisplay.innerText = result + " " + operator
                 actionresult.innerText = result
-                maindisplay.innerText = "0"
+                maindisplay.innerText = 0
             }
         }
     })
@@ -95,15 +93,17 @@ operators.forEach(function (el) {
 sec_operators.forEach(function (el) {
     el.addEventListener("click", (event) => {
         const secoperator = event.target.innerText;
+        const sec_operator_disp = '(' + maindisplay.innerText + ')'
 
     if (secoperator === 'C') {
-        maindisplay.innerText = "0";
+        maindisplay.innerText = 0;
         historydisplay.innerText = "";
-        actionresult.innerText = "0";
+        actionresult.innerText = 0;
             } else if (secoperator === '%') {
                 maindisplay.innerText = maindisplay.innerText * 0.01
             } else if (secoperator === '()') {
-                historydisplay.innerText = '(' + maindisplay.innerText + ')'
+                if (maindisplay.innerText != 0)
+                historydisplay.innerText = sec_operator_disp
                 maindisplay.innerText = 0
             }
     })
@@ -120,7 +120,6 @@ dot.addEventListener("click", (event) => {
 // Função troca de sinal
 
 signalchange.addEventListener("click", (event) => {
-    const value = event.target.innerText
     
         maindisplay.innerText = - + maindisplay.innerText
 })
@@ -133,4 +132,12 @@ backspace.addEventListener("click", (event) => {
 
     if (maindisplay.innerText.length == 0)
         maindisplay.innerText = vazio
+})
+
+// Função igual
+
+equal.addEventListener("click", (event) => {
+
+    historydisplay.innerText = 300
+    maindisplay.innerText = 0
 })
