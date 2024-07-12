@@ -47,41 +47,48 @@ numbers.forEach(function (el) {
 
 operators.forEach(function (el) {
     el.addEventListener("click", (event) => {
-        const operator = event.target.innerText;
-        const historyText = historydisplay.innerText.trim();
-        const firstValue = Number(historydisplay.innerText);
-        const secondValue = Number(maindisplay.innerText);
+        let CurrentValue = maindisplay.innerText
+
+        const operator = event.target.innerText
+        const historyText = historydisplay.innerText.trim()
+        const firstValue = parseFloat(historydisplay.innerText)
+        console.log("🚀 ~ el.addEventListener ~ parseFloat(historydisplay.innerText):", parseFloat(historydisplay.innerText))
+        const secondValue = parseFloat(maindisplay.innerText)
+        console.log("🚀 ~ el.addEventListener ~ parseFloat(maindisplay.innerText):", parseFloat(maindisplay.innerText))
 
         if (maindisplay && historydisplay) {
-            if (maindisplay.innerText !== "0") {
-                historydisplay.innerText = maindisplay.innerText;
-                maindisplay.innerText = "0"; // Ensure this is a string, not a number
+            if (CurrentValue !== "0") {
+                historydisplay.innerText = CurrentValue + " " + operator
+                CurrentValue = secondValue
+                maindisplay.innerText = "0"
             }
 
             if (historyText !== "") {
                 let result;
                 switch (operator) {
                     case '+':
-                        result = firstValue + secondValue;
-                        break;
+                        result = firstValue + CurrentValue;
+                        break
                     case '-':
-                        result = firstValue - secondValue;
-                        break;
+                        result = firstValue - CurrentValue;
+                        break
                     case 'x':
-                        result = firstValue * secondValue;
-                        break;
+                        result = firstValue * CurrentValue;
+                        break
                     case '/':
-                        result = firstValue / secondValue;
-                        break;
+                        result = firstValue / CurrentValue;
+                        break
                     default:
                         result = firstValue;
                 }
-                historydisplay.innerText = result
-                actionresult.innerText = result;
+
+                historydisplay.innerText = result + " " + operator
+                actionresult.innerText = result
+                maindisplay.innerText = "0"
             }
         }
-    });
-});
+    })
+})
 
 // Calculator secundary operator
 
@@ -115,9 +122,7 @@ dot.addEventListener("click", (event) => {
 signalchange.addEventListener("click", (event) => {
     const value = event.target.innerText
     
-    if (secoperator === '+/-') {
         maindisplay.innerText = - + maindisplay.innerText
-    }
 })
 
 // Função backspace
